@@ -158,7 +158,7 @@ class VichFileType extends AbstractType
                 throw new \UnexpectedValueException(\sprintf('Cannot find mapping for "%s" field', $fieldName));
             }
 
-            return ['download_label' => $mapping->readProperty($object, 'originalName'), 'translation_domain' => false];
+            return ['download_label' => $mapping->readProperty($object, 'originalName')];
         }
 
         if (\is_callable($downloadLabel)) {
@@ -166,14 +166,12 @@ class VichFileType extends AbstractType
 
             return [
                 'download_label' => $result['download_label'] ?? $result,
-                'translation_domain' => $result['translation_domain'] ?? false,
             ];
         }
 
         if ($downloadLabel instanceof PropertyPath) {
             return [
                 'download_label' => $this->propertyAccessor->getValue($object, $downloadLabel),
-                'translation_domain' => false,
             ];
         }
 
